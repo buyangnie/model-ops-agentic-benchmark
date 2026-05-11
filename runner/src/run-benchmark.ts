@@ -22,6 +22,37 @@ type RunnerOptions = {
   maxRounds?: number
 }
 
+type MessageContent = {
+  type?: string
+  text?: string
+  toolCall?: {
+    name?: string
+    value?: {
+      name?: string
+    }
+  }
+  toolResult?: {
+    status?: string
+  }
+}
+
+type MessageEvent = {
+  type?: string
+  message?: {
+    content?: MessageContent[]
+  }
+}
+
+type TurnResult = {
+  round: number
+  user: string
+  elapsedMs: number
+  pingCount: number
+  events: MessageEvent[]
+  timedOut?: boolean
+  error?: string
+}
+
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..")
 const workDir = path.join(repoRoot, "sandbox", "work")
 
@@ -156,7 +187,7 @@ async function sendTurn(options: RunnerOptions, sessionId: string, text: string)
 
   const reader = response.body.getReader()
   const decoder = new TextDecoder()
-  const events: unknown[] = []
+  const events: MessageEvent[] = []
   let pingCount = 0
   let buffer = ""
 
@@ -196,7 +227,7 @@ async function sendTurn(options: RunnerOptions, sessionId: string, text: string)
         timedOut: true,
         pingCount,
         events,
-        error: `turn timed out after ${options.turnTimeoutMs}ms`
+        error: `本轮超过 ${options.turnTimeoutMs}ms 后超时`
       }
     }
     throw error
@@ -205,6 +236,115 @@ async function sendTurn(options: RunnerOptions, sessionId: string, text: string)
   }
 
   return { elapsedMs: Date.now() - startedAt, pingCount, events }
+}
+
+function collectTurnStats(turns: TurnResult[]) {
+  let messageEvents = 0
+  let finishEvents = 0
+  let errorEvents = 0
+  let toolRequests = 0
+  let toolResponses = 0
+  let successfulToolResponses = 0
+  let assistantTextChars = 0
+  const tools = new Set<string>()
+
+  for (const turn of turns) {
+    for (const event of turn.events) {
+      if (event.type === "Message") messageEvents += 1
+      if (event.type === "Finish") finishEvents += 1
+      if (event.type === "Error") errorEvents += 1
+
+      for (const content of event.message?.content ?? []) {
+        if (content.type === "text") {
+          assistantTextChars += content.text?.length ?? 0
+        }
+        if (content.type === "toolRequest") {
+          toolRequests += 1
+          const toolName = content.toolCall?.value?.name ?? content.toolCall?.name
+          if (toolName) tools.add(toolName)
+        }
+        if (content.type === "toolResponse") {
+          toolResponses += 1
+          if (content.toolResult?.status === "success") {
+            successfulToolResponses += 1
+          }
+        }
+      }
+    }
+  }
+
+  return {
+    messageEvents,
+    finishEvents,
+    errorEvents,
+    toolRequests,
+    toolResponses,
+    successfulToolResponses,
+    assistantTextChars,
+    uniqueTools: [...tools]
+  }
+}
+
+function formatPercent(numerator: number, denominator: number) {
+  if (denominator === 0) return "无工具调用"
+  return `${((numerator / denominator) * 100).toFixed(1)}%`
+}
+
+function buildChineseReport(params: {
+  incident: Incident
+  options: RunnerOptions
+  sessionId: string
+  turns: TurnResult[]
+}) {
+  const { incident, options, sessionId, turns } = params
+  const stats = collectTurnStats(turns)
+  const elapsedMs = turns.reduce((sum, turn) => sum + turn.elapsedMs, 0)
+  const timedOut = turns.some((turn) => turn.timedOut)
+  const completed = stats.finishEvents > 0 && !timedOut
+  const toolSuccessRate = formatPercent(stats.successfulToolResponses, stats.toolResponses)
+
+  return `# 模型运维 Agentic 测试报告
+
+## 基本信息
+
+- 测试场景：${incident.id}（${incident.name}）
+- 模型：${options.model}
+- goosed 地址：${options.goosedUrl}
+- 会话 ID：${sessionId}
+- 计划轮次：${options.maxRounds ?? incident.rounds.length}
+- 实际轮次：${turns.length}
+- 上下文上限：${options.contextLimit}
+- 最大输出 tokens：${options.maxTokens}
+- 温度：${options.temperature}
+- 单轮超时：${options.turnTimeoutMs}ms
+
+## 运行结论
+
+- 是否完成：${completed ? "是" : "否"}
+- 是否超时：${timedOut ? "是" : "否"}
+- 总耗时：${elapsedMs}ms
+- Message 事件数：${stats.messageEvents}
+- Finish 事件数：${stats.finishEvents}
+- Error 事件数：${stats.errorEvents}
+- 工具请求数：${stats.toolRequests}
+- 工具响应数：${stats.toolResponses}
+- 工具成功响应数：${stats.successfulToolResponses}
+- 工具成功率：${toolSuccessRate}
+- 使用过的工具：${stats.uniqueTools.length > 0 ? stats.uniqueTools.join(", ") : "无"}
+- 助手文本字符数：${stats.assistantTextChars}
+
+## 各轮明细
+
+${turns.map((turn) => `### 第 ${turn.round} 轮
+
+- 用户输入：${turn.user}
+- 耗时：${turn.elapsedMs}ms
+- 心跳数：${turn.pingCount}
+- 非心跳事件数：${turn.events.length}
+- 是否超时：${turn.timedOut ? "是" : "否"}
+- 错误：${turn.error ?? "无"}
+`).join("\n")}
+`
 }
 
 async function main() {
@@ -233,9 +373,9 @@ async function main() {
   const session = await createSession(options)
   await updateProvider(options, session.id)
 
-  const events = []
+  const events: TurnResult[] = []
   for (const [index, round] of incident.rounds.slice(0, options.maxRounds).entries()) {
-    console.error(`running round ${index + 1}/${options.maxRounds ?? incident.rounds.length}`)
+    console.error(`正在运行第 ${index + 1}/${options.maxRounds ?? incident.rounds.length} 轮`)
     const result = await sendTurn(options, session.id, round)
     events.push({ round: index + 1, user: round, ...result })
     if ("timedOut" in result && result.timedOut) break
@@ -243,9 +383,15 @@ async function main() {
 
   const reportDir = path.join(repoRoot, "reports", incident.id, options.model.replace(/[:/]/g, "_"))
   await fs.mkdir(reportDir, { recursive: true })
+  const reportName = `run-${Date.now()}`
   await fs.writeFile(
-    path.join(reportDir, `run-${Date.now()}.json`),
+    path.join(reportDir, `${reportName}.json`),
     JSON.stringify({ plan, sessionId: session.id, events }, null, 2),
+    "utf8"
+  )
+  await fs.writeFile(
+    path.join(reportDir, `${reportName}.zh.md`),
+    buildChineseReport({ incident, options, sessionId: session.id, turns: events }),
     "utf8"
   )
 }
