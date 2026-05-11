@@ -1,101 +1,124 @@
 # Model Ops Agentic Benchmark
 
-Benchmark workspace for comparing local Ollama models in operational, multi-turn agentic scenarios through `goosed agent`.
-
-Initial target models:
-
-- `qwen3.5:4b-64k`
-- `qwen3.5:9b-64k`
+Benchmark workspace for comparing local Ollama models in operational agentic scenarios through `goosed agent`.
 
 ## Goal
 
-This repository is intended to measure model behavior inside the real `goosed` agent runtime, not through direct Ollama chat calls.
+This repository measures whether a local model is usable in a real `goosed` agentic workflow. The target is not best possible accuracy; the target is the smallest local model that can reliably finish practical FO Copilot-style operations work with MCP tools.
 
-The benchmark focuses on operations scenarios that require:
+Current benchmark scope:
 
-- multi-turn incident handling
-- tool use through local MCP servers
-- evidence-based troubleshooting
-- safe configuration edits
-- validation and rollback planning
-- handoff summaries
+- `goosed agent` runtime, not direct model calls.
+- Local Ollama through an OpenAI-compatible custom provider.
+- 32K context.
+- Normal thinking mode.
+- Single-round FO ticket scenarios with at most five tool calls.
+- Chinese reports.
 
-## Planned Layout
+## Layout
 
 ```text
-agents/      goosed agent configuration variants for each model
-mcp/         local MCP servers that expose controlled operations tools
-incidents/   multi-turn benchmark case definitions
-sandbox/     isolated logs, configs, metrics, runbooks, and validators
-runner/      benchmark runner that drives goosed sessions
-reports/     generated transcripts, metrics, and comparison summaries
+agents/      Ollama Modelfiles for benchmark model tags
+mcp/         local MCP server exposing controlled FO ticket tools
+incidents/   benchmark case definitions
+sandbox/     fixture state and isolated work directory
+runner/      goosed benchmark runner and report comparison script
+reports/     committed final 32K comparison report and supporting run outputs
 ```
 
-## Benchmark Shape
+## Models
 
-Each incident should run as a 10-20 round conversation against the same `goosed` session. The runner sends user messages, records assistant replies, captures tool activity, and checks final state with validators.
+Create the 32K local Ollama tags:
 
-The Ollama model is only the model provider. Session management, context handling, and tool orchestration should go through `goosed agent`.
+```bash
+ollama create qwen3.5:4b-32k-harness -f agents/ollama/qwen3.5-4b-32k-harness.Modelfile
+ollama create qwen3.5:9b-32k-harness -f agents/ollama/qwen3.5-9b-32k-harness.Modelfile
+```
 
-## Current MVP
-
-The first milestone contains:
-
-- a local stdio MCP server in `mcp/ops-tools`
-- a deploy-failure incident in `incidents/incident-001-deploy-failure.yaml`
-- sandbox fixtures under `sandbox/fixtures/incident-001-deploy-failure`
-- a runner in `runner/src/run-benchmark.ts`
-- integration notes in `docs/goosed-integration-notes.md`
-
-Install dependencies and build:
+## Build
 
 ```bash
 npm install
 npm run build
 ```
 
-Create 64K-capped local Ollama tags:
+## goosed Setup
 
-```bash
-ollama create qwen3.5:4b-64k -f agents/ollama/qwen3.5-4b-64k.Modelfile
-ollama create qwen3.5:9b-64k -f agents/ollama/qwen3.5-9b-64k.Modelfile
+Register a local OpenAI-compatible custom provider in the active `GOOSE_PATH_ROOT`:
+
+```json
+{
+  "name": "custom_ollama_local",
+  "engine": "openai",
+  "display_name": "Local Ollama OpenAI Compatible",
+  "api_key_env": "",
+  "base_url": "http://127.0.0.1:11434/v1/chat/completions",
+  "models": [
+    { "name": "qwen3.5:4b-32k-harness", "context_limit": 32768 },
+    { "name": "qwen3.5:9b-32k-harness", "context_limit": 32768 }
+  ],
+  "supports_streaming": true,
+  "requires_auth": false
+}
 ```
 
-Validate the runner without calling goosed:
+Start `goosed`:
 
 ```bash
-npm run runner -- --dry-run --model qwen3.5:4b --incident incident-001-deploy-failure
-```
-
-To run through goosed, start `goosed agent` separately with a fixed secret:
-
-```bash
+export GOOSE_PATH_ROOT=/tmp/model-ops-goosed-32k-root
 export GOOSE_SERVER__SECRET_KEY=model-ops-benchmark
 export GOOSE_TLS=false
-export GOOSE_INPUT_LIMIT=65536
-export OLLAMA_HOST=http://127.0.0.1:11434
+export GOOSE_DISABLE_KEYRING=1
+export GOOSE_TELEMETRY_ENABLED=false
+export GOOSE_CONTEXT_LIMIT=32768
+export GOOSE_MAX_TOKENS=1024
+export GOOSE_TEMPERATURE=0
 goosed agent
 ```
 
-Then run one model:
+## Run
+
+Run a single scenario:
 
 ```bash
-npm run runner -- --model qwen3.5:4b-64k --incident incident-001-deploy-failure
-npm run runner -- --model qwen3.5:9b-64k --incident incident-001-deploy-failure
+npm run runner -- \
+  --model qwen3.5:9b-32k-harness \
+  --provider custom_ollama_local \
+  --incident fo-ticket-dispatch-single \
+  --context-limit 32768 \
+  --max-tokens 1024 \
+  --temperature 0 \
+  --turn-timeout-ms 240000 \
+  --extension-mode ticket
 ```
 
-For a quick smoke test, limit the run to one round:
+Run all current FO ticket scenarios serially:
 
 ```bash
-npm run runner -- --model qwen3.5:4b-64k --incident incident-001-deploy-failure --max-rounds 1 --context-limit 65536 --max-tokens 512 --turn-timeout-ms 120000
+for incident in \
+  fo-ticket-intake-single \
+  fo-ticket-dispatch-single \
+  fo-ticket-followup-single \
+  fo-ticket-noaction-single \
+  fo-ticket-closure-single; do
+  npm run runner -- \
+    --model qwen3.5:9b-32k-harness \
+    --provider custom_ollama_local \
+    --incident "$incident" \
+    --context-limit 32768 \
+    --max-tokens 1024 \
+    --temperature 0 \
+    --turn-timeout-ms 240000 \
+    --extension-mode ticket
+done
 ```
 
-## Scoring Dimensions
+## Reports
 
-- Root cause identification
-- Tool-use quality
-- Multi-turn context retention
-- Safety constraint compliance
-- Fix validation
-- Incident handoff quality
-- Runtime performance on the local machine
+The current final report is:
+
+```text
+reports/comparison-qwen35-4b-9b-32k.zh.md
+```
+
+It includes the 32K 4B vs 9B selection judgment and points to the supporting per-scenario run outputs under `reports/fo-ticket-*-single/`.

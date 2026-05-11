@@ -2,40 +2,44 @@
 
 ## Purpose
 
-Compare local models in operational agentic scenarios while they run inside `goosed agent`.
+Compare local Qwen 3.5 models in `goosed` agentic operations workflows and identify the smallest model that is practically usable on the local machine.
 
-Initial models:
+The benchmark intentionally uses `goosed agent` plus MCP tools. Direct Ollama calls are only used for low-level connectivity diagnostics, not for model selection.
 
-- `qwen3.5:4b`
-- `qwen3.5:9b`
+## Current Test Scope
 
-## First Milestone
+- Context limit: 32K.
+- Thinking mode: normal model behavior.
+- Conversation shape: one user round per scenario.
+- Tool budget: at most five MCP tool calls per scenario.
+- Runtime: `goosed agent`.
+- Provider shape: OpenAI-compatible custom provider pointing at local Ollama.
+- Report language: Chinese.
 
-Run one complete 10-turn incident through both models:
+## Scenarios
 
-1. Reset sandbox.
-2. Start or connect to goosed.
-3. Create a session with benchmark MCP tools.
-4. Set Ollama provider and target model.
-5. Send scripted user turns.
-6. Let the model inspect logs/configs and edit sandbox config through MCP tools.
-7. Run validation.
-8. Save transcript and metrics.
+Current FO ticket scenarios:
 
-## Scoring
+- `fo-ticket-intake-single`
+- `fo-ticket-dispatch-single`
+- `fo-ticket-followup-single`
+- `fo-ticket-noaction-single`
+- `fo-ticket-closure-single`
 
-Each incident is scored out of 100:
+The scenarios cover ticket intake, dispatch, follow-up, no-action judgment, closure, and knowledge capture. Inputs are intentionally simple: ticket IDs, request IDs, fixed enum values, and assignee IDs.
 
-- Root cause identification: 25
-- Tool-use quality: 20
-- Multi-turn context retention: 15
-- Safety constraint compliance: 15
-- Fix validation: 15
-- Handoff quality: 10
+## Minimum Usability Bar
 
-The first version records enough evidence for manual scoring. Later versions can add automatic checks for validation pass/fail, forbidden actions, secret leakage, and repeated invalid tool calls.
+A model is considered usable only if it can:
 
-## Initial Incident
+- complete the scenario through `goosed`;
+- call the requested MCP tools successfully;
+- produce a `Finish` event;
+- satisfy the final state checks;
+- stay within the configured scenario timeout.
 
-`incident-001-deploy-failure` simulates a service failing to start after deployment. The hidden cause is a production port conflict. The safe fix is to change only the sandbox production API service port from `3000` to `3001` and provide verification plus rollback notes.
+Partial tool execution without `Finish` is not considered usable, because an agentic host would need external timeout cancellation to recover.
 
+## Known Harness Risk
+
+The current file-backed MCP state can expose write races when a model emits several tool calls in parallel. This is useful for surfacing agentic behavior, but it can also make final state checks fail even when all requested tools were called. Future revisions should either serialize state writes or make each tool update merge against the latest state.

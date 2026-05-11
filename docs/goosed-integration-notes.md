@@ -2,85 +2,85 @@
 
 This benchmark treats `goosed` as an external runtime. Do not modify the `goose` repository for benchmark logic.
 
-## Verified Runtime Shape
+## Runtime APIs
 
-The current local `goose` checkout exposes:
+The runner uses the desktop/backend HTTP APIs exposed by `goosed agent`:
 
-- `goosed agent` as the agent HTTP server command.
-- `GOOSE_SERVER__SECRET_KEY` as the server secret override.
-- `X-Secret-Key` as the request authentication header for protected routes.
-- `POST /agent/start` to create a user session.
-- `POST /agent/update_provider` to set provider/model for a session.
-- `POST /reply` as the SSE chat endpoint.
-- `extension_overrides` on `/agent/start` for per-session MCP extension injection.
+- `POST /agent/start` to create a session.
+- `PUT /sessions/{id}/name` to prevent automatic title generation from consuming the tested model.
+- `POST /agent/update_provider` to set the provider and model for the session.
+- `GET /sessions/{id}/events` to subscribe to assistant, tool, and finish events.
+- `POST /sessions/{id}/reply` to trigger a user turn.
+- `POST /sessions/{id}/cancel` as best-effort cleanup on timeout.
 
-The benchmark should use these APIs rather than calling Ollama directly for model responses.
+The older `/reply` streaming endpoint is not used for benchmark output collection because the session event stream is the reliable event source for this goosed flow.
 
-## Model Configuration
+## Provider Configuration
 
-Each benchmark run should create a fresh goosed session and then call:
+Use a custom OpenAI-compatible provider for local Ollama:
 
 ```json
 {
-  "provider": "ollama",
-  "model": "qwen3.5:4b-64k",
-  "session_id": "<session-id>",
-  "context_limit": 65536
+  "name": "custom_ollama_local",
+  "engine": "openai",
+  "display_name": "Local Ollama OpenAI Compatible",
+  "api_key_env": "",
+  "base_url": "http://127.0.0.1:11434/v1/chat/completions",
+  "models": [
+    { "name": "qwen3.5:4b-32k-harness", "context_limit": 32768 },
+    { "name": "qwen3.5:9b-32k-harness", "context_limit": 32768 }
+  ],
+  "supports_streaming": true,
+  "requires_auth": false
 }
 ```
 
-The same flow is used for `qwen3.5:9b`.
-
-Useful environment defaults:
-
-```bash
-export GOOSE_PROVIDER=ollama
-export GOOSE_MODEL=qwen3.5:4b-64k
-export OLLAMA_HOST=http://127.0.0.1:11434
-export GOOSE_SERVER__SECRET_KEY=model-ops-benchmark
-export GOOSE_TLS=false
-export GOOSE_INPUT_LIMIT=65536
-```
-
-`goosed agent` defaults to TLS in the inspected checkout. The benchmark runner currently assumes local HTTP, so use `GOOSE_TLS=false` for local runs unless the runner is extended to trust the generated self-signed certificate.
-
-Use the derived `qwen3.5:4b-64k` and `qwen3.5:9b-64k` tags for benchmark runs. They are created from the base local models with `PARAMETER num_ctx 65536`. This is more reliable than relying only on goosed request parameters because the inspected base Qwen 3.5 tags can otherwise load with a 128K context.
-
-## Per-Session MCP Extension
-
-The runner injects the benchmark MCP server when creating a session:
+The runner calls `POST /agent/update_provider` with:
 
 ```json
 {
-  "working_dir": "/absolute/path/to/model-ops-agentic-benchmark/sandbox/work",
-  "extension_overrides": [
-    {
-      "type": "stdio",
-      "name": "ops-benchmark-tools",
-      "cmd": "node",
-      "args": [
-        "/absolute/path/to/model-ops-agentic-benchmark/dist/mcp/ops-tools/src/server.js"
-      ],
-      "envs": {
-        "BENCHMARK_SANDBOX": "/absolute/path/to/model-ops-agentic-benchmark/sandbox/work"
-      },
-      "timeout": 60,
-      "bundled": false,
-      "description": "Controlled operations benchmark tools for local incident sandboxes"
-    }
-  ]
+  "provider": "custom_ollama_local",
+  "model": "qwen3.5:9b-32k-harness",
+  "session_id": "<session-id>",
+  "context_limit": 32768,
+  "request_params": {
+    "max_tokens": 1024,
+    "temperature": 0
+  }
+}
+```
+
+## MCP Extension
+
+Each run injects the benchmark MCP server through `extension_overrides`:
+
+```json
+{
+  "type": "stdio",
+  "name": "ops-benchmark-tools",
+  "cmd": "node",
+  "args": [
+    "/absolute/path/to/model-ops-agentic-benchmark/dist/mcp/ops-tools/src/server.js"
+  ],
+  "envs": {
+    "BENCHMARK_SANDBOX": "/absolute/path/to/model-ops-agentic-benchmark/sandbox/work"
+  },
+  "timeout": 60,
+  "bundled": false,
+  "description": "Controlled operations benchmark tools for local incident sandboxes"
 }
 ```
 
 ## Runner Contract
 
-The runner owns orchestration only:
+The runner owns orchestration:
 
-- reset `sandbox/work` from fixtures
-- start or connect to `goosed agent`
-- create a session
-- update the session provider/model
-- send 10-20 user turns to `/reply`
-- persist SSE events, transcript, timing, token state, and final validation output
+- reset `sandbox/work` from the selected fixture;
+- create a fresh goosed session;
+- set a session name before the first user turn;
+- update the provider and model;
+- subscribe to `/sessions/{id}/events`;
+- trigger `/sessions/{id}/reply`;
+- persist raw events, timing, token state, final sandbox state, and Chinese reports.
 
-The runner must not inspect incident internals to help the model during a run. The model should discover evidence only through goosed-visible MCP tools and its conversation context.
+The model must perform the scenario through goosed-visible MCP tools. The runner does not help the model by inspecting incident internals during a run.

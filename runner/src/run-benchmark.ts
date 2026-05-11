@@ -35,7 +35,7 @@ type RunnerOptions = {
   maxTokens: number
   temperature: number
   contextLimit: number
-  extensionMode: "ticket" | "smoke" | "none"
+  extensionMode: "ticket" | "none"
   ollamaStreamUsage?: boolean
   provider: string
   maxRounds?: number
@@ -98,15 +98,15 @@ function parseArgs(): RunnerOptions {
   const maxRounds = valueAfter("--max-rounds")
   const streamUsage = valueAfter("--ollama-stream-usage")
   return {
-    model: valueAfter("--model", "qwen3.5:4b")!,
-    incident: valueAfter("--incident", "incident-001-deploy-failure")!,
+    model: valueAfter("--model", "qwen3.5:9b-32k-harness")!,
+    incident: valueAfter("--incident", "fo-ticket-dispatch-single")!,
     goosedUrl: valueAfter("--goosed-url", "http://127.0.0.1:3000")!,
     secretKey: valueAfter("--secret-key", process.env.GOOSE_SERVER__SECRET_KEY ?? "model-ops-benchmark")!,
     dryRun: args.includes("--dry-run"),
-    turnTimeoutMs: Number(valueAfter("--turn-timeout-ms", "180000")),
+    turnTimeoutMs: Number(valueAfter("--turn-timeout-ms", "240000")),
     maxTokens: Number(valueAfter("--max-tokens", "1024")),
-    temperature: Number(valueAfter("--temperature", "0.1")),
-    contextLimit: Number(valueAfter("--context-limit", "65536")),
+    temperature: Number(valueAfter("--temperature", "0")),
+    contextLimit: Number(valueAfter("--context-limit", "32768")),
     extensionMode: valueAfter("--extension-mode", "ticket") as RunnerOptions["extensionMode"],
     ollamaStreamUsage: streamUsage === undefined ? undefined : streamUsage === "true",
     provider: valueAfter("--provider", "custom_ollama_local")!,
@@ -128,18 +128,6 @@ async function loadIncident(incidentId: string): Promise<Incident> {
 
 function extensionOverride(options: RunnerOptions) {
   if (options.extensionMode === "none") return []
-  if (options.extensionMode === "smoke") {
-    return [{
-      type: "stdio",
-      name: "ops-benchmark-smoke-tools",
-      cmd: "node",
-      args: [path.join(repoRoot, "dist", "mcp", "smoke-tools", "src", "server.js")],
-      envs: {},
-      timeout: 60,
-      bundled: false,
-      description: "Minimal one-tool smoke MCP for local goosed sanity checks"
-    }]
-  }
   return {
     type: "stdio",
     name: "ops-benchmark-tools",

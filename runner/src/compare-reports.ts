@@ -38,9 +38,9 @@ function parseArgs() {
     return index >= 0 ? args[index + 1] : fallback
   }
   return {
-    models: valueAfter("--models", "qwen3.5:4b-64k,qwen3.5:9b-64k")!.split(","),
-    incidents: valueAfter("--incidents", "fo-ticket-intake-2round,fo-ticket-dispatch-2round,fo-ticket-followup-2round,fo-ticket-closure-2round")!.split(","),
-    output: valueAfter("--output", path.join(reportsRoot, "comparison-fo-ticket.zh.md"))!
+    models: valueAfter("--models", "qwen3.5:4b-32k-harness,qwen3.5:9b-32k-harness")!.split(","),
+    incidents: valueAfter("--incidents", "fo-ticket-intake-single,fo-ticket-dispatch-single,fo-ticket-followup-single,fo-ticket-noaction-single,fo-ticket-closure-single")!.split(","),
+    output: valueAfter("--output", path.join(reportsRoot, "comparison-qwen35-4b-9b-32k.zh.md"))!
   }
 }
 
@@ -106,7 +106,7 @@ function collect(run: RunReport) {
 
 function normalizedElapsedMs(turn: TurnResult) {
   if (!turn.timedOut) return turn.elapsedMs
-  return Math.min(turn.elapsedMs, 180000)
+  return Math.min(turn.elapsedMs, 240000)
 }
 
 function percent(value: number) {
@@ -152,7 +152,7 @@ async function main() {
   const allSummaries = Object.values(summaries).flat()
   const passedCount = allSummaries.filter((item) => item.finished && item.statePassed && !item.timedOut).length
   const conclusion = passedCount === 0
-    ? "本轮 16K/32K 单轮测试没有任何模型通过最低可用线；qwen3.5:4b 和 qwen3.5:9b 在当前本机 goosed 工单 agentic 场景下均不可用。"
+    ? "本轮 32K 单轮测试没有任何模型通过最低可用线；qwen3.5:4b 和 qwen3.5:9b 在当前本机 goosed 工单 agentic 场景下均不可用。"
     : "本轮存在模型通过最低可用线，优先比较通过场景数、工具成功率和首工具延迟。"
 
   const report = `# FO Copilot 工单 Agentic 模型对比报告
@@ -165,11 +165,11 @@ async function main() {
 
 - 所有场景通过 goosed agent 跑通，不直接调用模型接口。
 - 模型逐个测试，不并行运行。
-- 本轮测试使用 16K 和 32K 两档上下文；8K 不作为选型依据。
+- 本轮测试使用 32K 上下文。
 - 每个场景 1 轮，每轮最多 5 次工具调用。
 - MCP 工具覆盖 intake、派单、跟进、no-action、关闭、知识沉淀，但入参只使用 ticketId、固定枚举和简单 ID。
 - 提示词使用短指令、明确工具序列和固定枚举，降低 tiny LLM 在复杂规划和复杂 schema 上的消耗。
-- 单轮 180 秒内没有完成并产生最终状态校验，即判定该场景失败。
+- 单轮 240 秒内没有完成并产生最终状态校验，即判定该场景失败。
 
 ## 模型汇总
 
@@ -189,7 +189,7 @@ ${rows.join("\n")}
 
 - 若 4B 通过大多数场景，且工具成功率接近 9B，可优先选 4B，并继续用短提示词、枚举入参、两步任务拆分来 harness。
 - 若 4B 在最终状态校验上频繁失败，而 9B 稳定通过，则 9B 是 goosed 工单 agentic 场景的最小可用模型。
-- 若 16K 和 32K 下都不能完成单轮最多 5 次工具调用，则该模型在当前本机 goosed 工单 agentic 场景下不可用。
+- 若 32K 下不能完成单轮最多 5 次工具调用，则该模型在当前本机 goosed 工单 agentic 场景下不可用。
 `
 
   await fs.mkdir(path.dirname(options.output), { recursive: true })
