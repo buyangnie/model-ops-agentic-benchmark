@@ -18,6 +18,7 @@ type RunnerOptions = {
   turnTimeoutMs: number
   maxTokens: number
   temperature: number
+  contextLimit: number
   maxRounds?: number
 }
 
@@ -41,6 +42,7 @@ function parseArgs(): RunnerOptions {
     turnTimeoutMs: Number(valueAfter("--turn-timeout-ms", "180000")),
     maxTokens: Number(valueAfter("--max-tokens", "1024")),
     temperature: Number(valueAfter("--temperature", "0.1")),
+    contextLimit: Number(valueAfter("--context-limit", "65536")),
     maxRounds: maxRounds ? Number(maxRounds) : undefined
   }
 }
@@ -117,7 +119,7 @@ async function updateProvider(options: RunnerOptions, sessionId: string) {
     provider: "ollama",
     model: options.model,
     session_id: sessionId,
-    context_limit: 8192,
+    context_limit: options.contextLimit,
     request_params: {
       max_tokens: options.maxTokens,
       temperature: options.temperature
@@ -219,6 +221,7 @@ async function main() {
     rounds: options.maxRounds ?? incident.rounds.length,
     maxTokens: options.maxTokens,
     temperature: options.temperature,
+    contextLimit: options.contextLimit,
     extensionOverride: extensionOverride()
   }
 

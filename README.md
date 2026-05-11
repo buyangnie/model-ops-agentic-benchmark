@@ -4,8 +4,8 @@ Benchmark workspace for comparing local Ollama models in operational, multi-turn
 
 Initial target models:
 
-- `qwen3.5:4b`
-- `qwen3.5:9b`
+- `qwen3.5:4b-64k`
+- `qwen3.5:9b-64k`
 
 ## Goal
 
@@ -54,6 +54,13 @@ npm install
 npm run build
 ```
 
+Create 64K-capped local Ollama tags:
+
+```bash
+ollama create qwen3.5:4b-64k -f agents/ollama/qwen3.5-4b-64k.Modelfile
+ollama create qwen3.5:9b-64k -f agents/ollama/qwen3.5-9b-64k.Modelfile
+```
+
 Validate the runner without calling goosed:
 
 ```bash
@@ -65,6 +72,7 @@ To run through goosed, start `goosed agent` separately with a fixed secret:
 ```bash
 export GOOSE_SERVER__SECRET_KEY=model-ops-benchmark
 export GOOSE_TLS=false
+export GOOSE_INPUT_LIMIT=65536
 export OLLAMA_HOST=http://127.0.0.1:11434
 goosed agent
 ```
@@ -72,14 +80,14 @@ goosed agent
 Then run one model:
 
 ```bash
-npm run runner -- --model qwen3.5:4b --incident incident-001-deploy-failure
-npm run runner -- --model qwen3.5:9b --incident incident-001-deploy-failure
+npm run runner -- --model qwen3.5:4b-64k --incident incident-001-deploy-failure
+npm run runner -- --model qwen3.5:9b-64k --incident incident-001-deploy-failure
 ```
 
 For a quick smoke test, limit the run to one round:
 
 ```bash
-npm run runner -- --model qwen3.5:4b --incident incident-001-deploy-failure --max-rounds 1 --max-tokens 512 --turn-timeout-ms 120000
+npm run runner -- --model qwen3.5:4b-64k --incident incident-001-deploy-failure --max-rounds 1 --context-limit 65536 --max-tokens 512 --turn-timeout-ms 120000
 ```
 
 ## Scoring Dimensions

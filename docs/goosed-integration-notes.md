@@ -23,9 +23,9 @@ Each benchmark run should create a fresh goosed session and then call:
 ```json
 {
   "provider": "ollama",
-  "model": "qwen3.5:4b",
+  "model": "qwen3.5:4b-64k",
   "session_id": "<session-id>",
-  "context_limit": 8192
+  "context_limit": 65536
 }
 ```
 
@@ -35,13 +35,16 @@ Useful environment defaults:
 
 ```bash
 export GOOSE_PROVIDER=ollama
-export GOOSE_MODEL=qwen3.5:4b
+export GOOSE_MODEL=qwen3.5:4b-64k
 export OLLAMA_HOST=http://127.0.0.1:11434
 export GOOSE_SERVER__SECRET_KEY=model-ops-benchmark
 export GOOSE_TLS=false
+export GOOSE_INPUT_LIMIT=65536
 ```
 
 `goosed agent` defaults to TLS in the inspected checkout. The benchmark runner currently assumes local HTTP, so use `GOOSE_TLS=false` for local runs unless the runner is extended to trust the generated self-signed certificate.
+
+Use the derived `qwen3.5:4b-64k` and `qwen3.5:9b-64k` tags for benchmark runs. They are created from the base local models with `PARAMETER num_ctx 65536`. This is more reliable than relying only on goosed request parameters because the inspected base Qwen 3.5 tags can otherwise load with a 128K context.
 
 ## Per-Session MCP Extension
 
