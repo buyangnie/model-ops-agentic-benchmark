@@ -1,0 +1,13 @@
+# Runtime outputs
+reports/
+*.log
+
+# Local environment
+.env
+.DS_Store
+
+# Dependencies and caches
+node_modules/
+__pycache__/
+.pytest_cache/
+
