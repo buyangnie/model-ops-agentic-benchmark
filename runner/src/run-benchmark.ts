@@ -6,6 +6,7 @@ import YAML from "yaml"
 type Incident = {
   id: string
   name: string
+  fixture?: string
   rounds: string[]
 }
 
@@ -285,6 +286,10 @@ function collectTurnStats(turns: TurnResult[]) {
   }
 }
 
+function collectSingleTurnStats(turn: TurnResult) {
+  return collectTurnStats([turn])
+}
+
 function formatPercent(numerator: number, denominator: number) {
   if (denominator === 0) return "无工具调用"
   return `${((numerator / denominator) * 100).toFixed(1)}%`
@@ -341,6 +346,9 @@ ${turns.map((turn) => `### 第 ${turn.round} 轮
 - 耗时：${turn.elapsedMs}ms
 - 心跳数：${turn.pingCount}
 - 非心跳事件数：${turn.events.length}
+- 工具请求数：${collectSingleTurnStats(turn).toolRequests}
+- 工具响应数：${collectSingleTurnStats(turn).toolResponses}
+- 是否超过 5 次工具调用：${collectSingleTurnStats(turn).toolRequests > 5 ? "是" : "否"}
 - 是否超时：${turn.timedOut ? "是" : "否"}
 - 错误：${turn.error ?? "无"}
 `).join("\n")}
@@ -350,7 +358,7 @@ ${turns.map((turn) => `### 第 ${turn.round} 轮
 async function main() {
   const options = parseArgs()
   const incident = await loadIncident(options.incident)
-  const fixtureDir = path.join(repoRoot, "sandbox", "fixtures", incident.id)
+  const fixtureDir = path.join(repoRoot, "sandbox", "fixtures", incident.fixture ?? incident.id)
   await copyDir(fixtureDir, workDir)
 
   const plan = {

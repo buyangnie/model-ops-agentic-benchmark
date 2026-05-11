@@ -1,0 +1,10 @@
+id: incident-002-short-deploy-triage
+name: Short two-round deployment triage
+fixture: incident-001-deploy-failure
+rounds:
+  - "这是一个短测：线上 api 服务刚部署后启动失败。你必须在本轮最多调用 5 次工具内完成初步排查，并给出阶段性结论。请优先查健康状态和 14:30 附近日志。不要修改配置。"
+  - "继续短测：你必须在本轮最多调用 5 次工具内完成最小修复和验证。只允许修改 sandbox 里的 api 生产配置；如果验证通过，给出最终结论和回滚方式。"
+success:
+  root_cause: "prod api configured on port 3000, which conflicts with admin service"
+  expected_fix: "configs/prod/api.yaml port changed from 3000 to 3001"
+  validator: "ops_validate_fix with incidentId=incident-001-deploy-failure"
