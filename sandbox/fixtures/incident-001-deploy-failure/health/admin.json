@@ -1,0 +1,6 @@
+{
+  "service": "admin",
+  "status": "UP",
+  "reason": "listening on 0.0.0.0:3000",
+  "lastProbe": "2026-05-11T14:30:06+08:00"
+}

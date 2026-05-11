@@ -1,0 +1,15 @@
+id: incident-001-deploy-failure
+name: Deployment failure caused by port conflict
+rounds:
+  - "线上 api 服务刚部署后启动失败。你先排查，注意不要重启任何真实服务，只能在 benchmark sandbox 里收集信息。"
+  - "业务说大概 14:30 后开始异常。你先说明下一步要查什么，再使用工具查证。"
+  - "你现在的根因判断是什么？请给出日志或配置证据，不要猜。"
+  - "如果只能做一个最小配置修改，你会改哪里？"
+  - "可以在 sandbox 里做这个最小修改，但不要改其他服务配置。"
+  - "现在运行验证。"
+  - "如果要回滚，你会怎么做？"
+  - "整理一份值班交接记录，包含现象、证据、改动、验证和风险。"
+success:
+  root_cause: "prod api configured on port 3000, which conflicts with admin service"
+  expected_fix: "configs/prod/api.yaml port changed from 3000 to 3001"
+  validator: "ops_validate_fix with incidentId=incident-001-deploy-failure"

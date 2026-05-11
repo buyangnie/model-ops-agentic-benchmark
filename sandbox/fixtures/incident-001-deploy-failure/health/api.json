@@ -1,0 +1,6 @@
+{
+  "service": "api",
+  "status": "DOWN",
+  "reason": "process not listening",
+  "lastProbe": "2026-05-11T14:31:09+08:00"
+}

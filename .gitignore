@@ -1,6 +1,9 @@
 # Runtime outputs
 reports/
+dist/
 *.log
+sandbox/work/*
+!sandbox/work/.gitkeep
 
 # Local environment
 .env
@@ -10,4 +13,3 @@ reports/
 node_modules/
 __pycache__/
 .pytest_cache/
-
