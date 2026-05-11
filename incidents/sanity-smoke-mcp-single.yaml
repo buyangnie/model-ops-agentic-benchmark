@@ -1,0 +1,5 @@
+id: sanity-smoke-mcp-single
+name: goosed 单工具 MCP sanity check
+fixture: fo-ticket-lifecycle
+rounds:
+  - "只调用 smoke_ping(label=hello) 一次，然后用一句中文说明工具返回 ok。"

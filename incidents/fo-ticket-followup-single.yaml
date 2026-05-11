@@ -1,0 +1,16 @@
+id: fo-ticket-followup-single
+name: FO Copilot 单轮工单跟进
+fixture: fo-ticket-lifecycle
+rounds:
+  - "你是 FO Copilot。本轮最多 5 次工具调用，只按顺序调用这些工具：1 ticket_next_action(ticketId=INC-1002)；2 outbox_prepare_message(ticketId=INC-1002, messageType=ask_user)；3 todo_create_followup(ticketId=INC-1002, reasonCode=await_user)；4 ticket_add_comment(ticketId=INC-1002, commentType=followup_note)。然后用一句中文总结。"
+success:
+  expectedOutbox:
+    - ticketId: INC-1002
+      messageType: ask_user
+  expectedTodos:
+    - ticketId: INC-1002
+      reasonCode: await_user
+  expectedComments:
+    - ticketId: INC-1002
+      commentType: followup_note
+

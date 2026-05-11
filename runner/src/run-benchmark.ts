@@ -1,4 +1,5 @@
 import { promises as fs } from "node:fs"
+import crypto from "node:crypto"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import YAML from "yaml"
@@ -8,6 +9,20 @@ type Incident = {
   name: string
   fixture?: string
   rounds: string[]
+  success?: SuccessSpec
+}
+
+type SuccessSpec = {
+  expectedTickets?: Array<{
+    ticketId: string
+    status?: string
+    nextAction?: string
+    assigneeId?: string
+    knowledgeCreated?: boolean
+  }>
+  expectedComments?: Array<{ ticketId: string; commentType: string }>
+  expectedOutbox?: Array<{ ticketId: string; messageType: string }>
+  expectedTodos?: Array<{ ticketId: string; reasonCode: string }>
 }
 
 type RunnerOptions = {
@@ -20,6 +35,9 @@ type RunnerOptions = {
   maxTokens: number
   temperature: number
   contextLimit: number
+  extensionMode: "ticket" | "smoke" | "none"
+  ollamaStreamUsage?: boolean
+  provider: string
   maxRounds?: number
 }
 
@@ -42,16 +60,29 @@ type MessageEvent = {
   message?: {
     content?: MessageContent[]
   }
+  chat_request_id?: string
+  request_id?: string
 }
 
 type TurnResult = {
   round: number
   user: string
   elapsedMs: number
+  firstEventMs?: number
+  firstMessageMs?: number
+  firstToolRequestMs?: number
+  firstToolResponseMs?: number
   pingCount: number
   events: MessageEvent[]
   timedOut?: boolean
   error?: string
+}
+
+type SuccessCheck = {
+  name: string
+  passed: boolean
+  expected: unknown
+  observed: unknown
 }
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..")
@@ -65,6 +96,7 @@ function parseArgs(): RunnerOptions {
   }
 
   const maxRounds = valueAfter("--max-rounds")
+  const streamUsage = valueAfter("--ollama-stream-usage")
   return {
     model: valueAfter("--model", "qwen3.5:4b")!,
     incident: valueAfter("--incident", "incident-001-deploy-failure")!,
@@ -75,6 +107,9 @@ function parseArgs(): RunnerOptions {
     maxTokens: Number(valueAfter("--max-tokens", "1024")),
     temperature: Number(valueAfter("--temperature", "0.1")),
     contextLimit: Number(valueAfter("--context-limit", "65536")),
+    extensionMode: valueAfter("--extension-mode", "ticket") as RunnerOptions["extensionMode"],
+    ollamaStreamUsage: streamUsage === undefined ? undefined : streamUsage === "true",
+    provider: valueAfter("--provider", "custom_ollama_local")!,
     maxRounds: maxRounds ? Number(maxRounds) : undefined
   }
 }
@@ -91,7 +126,20 @@ async function loadIncident(incidentId: string): Promise<Incident> {
   return YAML.parse(text) as Incident
 }
 
-function extensionOverride() {
+function extensionOverride(options: RunnerOptions) {
+  if (options.extensionMode === "none") return []
+  if (options.extensionMode === "smoke") {
+    return [{
+      type: "stdio",
+      name: "ops-benchmark-smoke-tools",
+      cmd: "node",
+      args: [path.join(repoRoot, "dist", "mcp", "smoke-tools", "src", "server.js")],
+      envs: {},
+      timeout: 60,
+      bundled: false,
+      description: "Minimal one-tool smoke MCP for local goosed sanity checks"
+    }]
+  }
   return {
     type: "stdio",
     name: "ops-benchmark-tools",
@@ -123,9 +171,9 @@ function userMessage(text: string) {
   }
 }
 
-async function goosedFetch(options: RunnerOptions, endpoint: string, body: unknown) {
+async function goosedFetch(options: RunnerOptions, endpoint: string, body: unknown, method = "POST") {
   const response = await fetch(`${options.goosedUrl}${endpoint}`, {
-    method: "POST",
+    method,
     headers: {
       "Content-Type": "application/json",
       "X-Secret-Key": options.secretKey
@@ -141,60 +189,127 @@ async function goosedFetch(options: RunnerOptions, endpoint: string, body: unkno
 async function createSession(options: RunnerOptions) {
   const response = await goosedFetch(options, "/agent/start", {
     working_dir: workDir,
-    extension_overrides: [extensionOverride()]
+    extension_overrides: options.extensionMode === "ticket" ? [extensionOverride(options)] : extensionOverride(options)
   })
-  return await response.json() as { id: string }
+  const session = await response.json() as { id: string }
+  await goosedFetch(options, `/sessions/${session.id}/name`, {
+    name: `benchmark ${options.incident} ${options.model}`
+  }, "PUT")
+  return session
 }
 
 async function updateProvider(options: RunnerOptions, sessionId: string) {
+  const requestParams: Record<string, unknown> = {
+    max_tokens: options.maxTokens,
+    temperature: options.temperature
+  }
+  if (options.ollamaStreamUsage === false) {
+    requestParams.stream_options = null
+  }
   await goosedFetch(options, "/agent/update_provider", {
-    provider: "ollama",
+    provider: options.provider,
     model: options.model,
     session_id: sessionId,
     context_limit: options.contextLimit,
-    request_params: {
-      max_tokens: options.maxTokens,
-      temperature: options.temperature
-    }
+    request_params: requestParams
   })
+}
+
+async function cancelTurn(options: RunnerOptions, sessionId: string, requestId: string) {
+  try {
+    await goosedFetch(options, `/sessions/${sessionId}/cancel`, { request_id: requestId })
+  } catch {
+    // Best-effort cleanup. The timeout result remains the source of truth.
+  }
 }
 
 async function sendTurn(options: RunnerOptions, sessionId: string, text: string) {
   const startedAt = Date.now()
-  const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), options.turnTimeoutMs)
-  const response = await fetch(`${options.goosedUrl}/reply`, {
+  const eventsResponse = await fetch(`${options.goosedUrl}/sessions/${sessionId}/events`, {
+    headers: {
+      "X-Secret-Key": options.secretKey
+    }
+  })
+  if (!eventsResponse.ok) {
+    throw new Error(`/sessions/${sessionId}/events failed: ${eventsResponse.status} ${await eventsResponse.text()}`)
+  }
+  if (!eventsResponse.body) {
+    throw new Error("/events did not return a response body")
+  }
+
+  const requestId = crypto.randomUUID()
+  const response = await fetch(`${options.goosedUrl}/sessions/${sessionId}/reply`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "X-Secret-Key": options.secretKey
     },
     body: JSON.stringify({
-    session_id: sessionId,
-    user_message: userMessage(text),
-    recipe_name: null,
-    recipe_version: null
-    }),
-    signal: controller.signal
+      request_id: requestId,
+      user_message: userMessage(text)
+    })
   })
   if (!response.ok) {
-    clearTimeout(timeout)
-    throw new Error(`/reply failed: ${response.status} ${await response.text()}`)
-  }
-  if (!response.body) {
-    clearTimeout(timeout)
-    throw new Error("/reply did not return a response body")
+    await eventsResponse.body.cancel()
+    throw new Error(`/sessions/${sessionId}/reply failed: ${response.status} ${await response.text()}`)
   }
 
-  const reader = response.body.getReader()
+  const reader = eventsResponse.body.getReader()
   const decoder = new TextDecoder()
   const events: MessageEvent[] = []
   let pingCount = 0
   let buffer = ""
+  let firstEventMs: number | undefined
+  let firstMessageMs: number | undefined
+  let firstToolRequestMs: number | undefined
+  let firstToolResponseMs: number | undefined
+
+  const markContentLatency = (event: MessageEvent) => {
+    const elapsed = Date.now() - startedAt
+    if (event.type === "Message" && firstMessageMs === undefined) firstMessageMs = elapsed
+    for (const content of event.message?.content ?? []) {
+      if (content.type === "toolRequest" && firstToolRequestMs === undefined) firstToolRequestMs = elapsed
+      if (content.type === "toolResponse" && firstToolResponseMs === undefined) firstToolResponseMs = elapsed
+    }
+  }
+
+  const buildResult = (extra?: Partial<TurnResult>) => ({
+    elapsedMs: Date.now() - startedAt,
+    firstEventMs,
+    firstMessageMs,
+    firstToolRequestMs,
+    firstToolResponseMs,
+    pingCount,
+    events,
+    ...extra
+  })
 
   try {
     while (true) {
-      const { done, value } = await reader.read()
+      const remainingMs = options.turnTimeoutMs - (Date.now() - startedAt)
+      if (remainingMs <= 0) {
+        await reader.cancel()
+        await cancelTurn(options, sessionId, requestId)
+        return buildResult({
+          timedOut: true,
+          elapsedMs: options.turnTimeoutMs,
+          error: `本轮超过 ${options.turnTimeoutMs}ms 后超时`
+        })
+      }
+      const readResult = await Promise.race([
+        reader.read(),
+        new Promise<{ timeout: true }>((resolve) => setTimeout(() => resolve({ timeout: true }), remainingMs))
+      ])
+      if ("timeout" in readResult) {
+        await reader.cancel()
+        await cancelTurn(options, sessionId, requestId)
+        return buildResult({
+          timedOut: true,
+          elapsedMs: options.turnTimeoutMs,
+          error: `本轮超过 ${options.turnTimeoutMs}ms 后超时`
+        })
+      }
+      const { done, value } = readResult
       if (done) break
       buffer += decoder.decode(value, { stream: true })
 
@@ -202,6 +317,11 @@ async function sendTurn(options: RunnerOptions, sessionId: string, text: string)
       while (separator >= 0) {
         const rawEvent = buffer.slice(0, separator)
         buffer = buffer.slice(separator + 2)
+        if (rawEvent.startsWith(":")) {
+          pingCount += 1
+          separator = buffer.indexOf("\n\n")
+          continue
+        }
         for (const line of rawEvent.split(/\r?\n/)) {
           if (!line.startsWith("data:")) continue
           const payload = line.slice("data:".length).trim()
@@ -211,11 +331,16 @@ async function sendTurn(options: RunnerOptions, sessionId: string, text: string)
             pingCount += 1
             continue
           }
+          const messageEvent = event as MessageEvent
+          if (messageEvent.chat_request_id && messageEvent.chat_request_id !== requestId) {
+            continue
+          }
+          if (firstEventMs === undefined) firstEventMs = Date.now() - startedAt
           events.push(event)
+          markContentLatency(messageEvent)
           if (event.type === "Finish" || event.type === "Error") {
             await reader.cancel()
-            clearTimeout(timeout)
-            return { elapsedMs: Date.now() - startedAt, pingCount, events }
+            return buildResult()
           }
         }
         separator = buffer.indexOf("\n\n")
@@ -223,20 +348,16 @@ async function sendTurn(options: RunnerOptions, sessionId: string, text: string)
     }
   } catch (error) {
     if ((error as Error).name === "AbortError") {
-      return {
-        elapsedMs: Date.now() - startedAt,
+      await cancelTurn(options, sessionId, requestId)
+      return buildResult({
         timedOut: true,
-        pingCount,
-        events,
         error: `本轮超过 ${options.turnTimeoutMs}ms 后超时`
-      }
+      })
     }
     throw error
-  } finally {
-    clearTimeout(timeout)
   }
 
-  return { elapsedMs: Date.now() - startedAt, pingCount, events }
+  return buildResult()
 }
 
 function collectTurnStats(turns: TurnResult[]) {
@@ -295,18 +416,90 @@ function formatPercent(numerator: number, denominator: number) {
   return `${((numerator / denominator) * 100).toFixed(1)}%`
 }
 
+function formatMs(value?: number) {
+  return value === undefined ? "无" : `${value}ms`
+}
+
+function estimateCharsPerSecond(chars: number, elapsedMs: number) {
+  if (elapsedMs <= 0) return "无"
+  return `${((chars / elapsedMs) * 1000).toFixed(1)} 字符/秒`
+}
+
+async function readFinalState(): Promise<Record<string, unknown> | undefined> {
+  try {
+    return JSON.parse(await fs.readFile(path.join(workDir, "ticket-state.json"), "utf8")) as Record<string, unknown>
+  } catch {
+    return undefined
+  }
+}
+
+function includesObject(items: unknown, expected: Record<string, unknown>) {
+  if (!Array.isArray(items)) return undefined
+  return items.find((item) => {
+    if (!item || typeof item !== "object") return false
+    const record = item as Record<string, unknown>
+    return Object.entries(expected).every(([key, value]) => record[key] === value)
+  })
+}
+
+function evaluateSuccess(incident: Incident, state?: Record<string, unknown>): SuccessCheck[] {
+  if (!incident.success || !state) return []
+  const checks: SuccessCheck[] = []
+  const tickets = Array.isArray(state.tickets) ? state.tickets as Array<Record<string, unknown>> : []
+
+  for (const expected of incident.success.expectedTickets ?? []) {
+    const ticket = tickets.find((item) => item.id === expected.ticketId)
+    const observed = ticket
+      ? Object.fromEntries(Object.keys(expected).map((key) => [key, ticket[key]]))
+      : undefined
+    const passed = ticket !== undefined
+      && (expected.status === undefined || ticket.status === expected.status)
+      && (expected.nextAction === undefined || ticket.nextAction === expected.nextAction)
+      && (expected.assigneeId === undefined || ticket.assigneeId === expected.assigneeId)
+      && (expected.knowledgeCreated === undefined || ticket.knowledgeCreated === expected.knowledgeCreated)
+    checks.push({ name: `工单状态 ${expected.ticketId}`, passed, expected, observed })
+  }
+
+  for (const expected of incident.success.expectedComments ?? []) {
+    const observed = includesObject(state.comments, expected)
+    checks.push({ name: `工单备注 ${expected.ticketId}/${expected.commentType}`, passed: Boolean(observed), expected, observed })
+  }
+
+  for (const expected of incident.success.expectedOutbox ?? []) {
+    const observed = includesObject(state.outbox, expected)
+    checks.push({ name: `待发送消息 ${expected.ticketId}/${expected.messageType}`, passed: Boolean(observed), expected, observed })
+  }
+
+  for (const expected of incident.success.expectedTodos ?? []) {
+    const observed = includesObject(state.todos, expected)
+    checks.push({ name: `跟进任务 ${expected.ticketId}/${expected.reasonCode}`, passed: Boolean(observed), expected, observed })
+  }
+
+  return checks
+}
+
 function buildChineseReport(params: {
   incident: Incident
   options: RunnerOptions
   sessionId: string
   turns: TurnResult[]
+  successChecks: SuccessCheck[]
 }) {
-  const { incident, options, sessionId, turns } = params
+  const { incident, options, sessionId, turns, successChecks } = params
   const stats = collectTurnStats(turns)
   const elapsedMs = turns.reduce((sum, turn) => sum + turn.elapsedMs, 0)
   const timedOut = turns.some((turn) => turn.timedOut)
-  const completed = stats.finishEvents > 0 && !timedOut
+  const successPassed = successChecks.length > 0 && successChecks.every((check) => check.passed)
+  const completed = stats.finishEvents >= turns.length && !timedOut && (successChecks.length === 0 || successPassed)
   const toolSuccessRate = formatPercent(stats.successfulToolResponses, stats.toolResponses)
+  const firstMessageValues = turns.map((turn) => turn.firstMessageMs).filter((value): value is number => value !== undefined)
+  const firstToolValues = turns.map((turn) => turn.firstToolRequestMs).filter((value): value is number => value !== undefined)
+  const avgFirstMessage = firstMessageValues.length > 0
+    ? Math.round(firstMessageValues.reduce((sum, value) => sum + value, 0) / firstMessageValues.length)
+    : undefined
+  const avgFirstTool = firstToolValues.length > 0
+    ? Math.round(firstToolValues.reduce((sum, value) => sum + value, 0) / firstToolValues.length)
+    : undefined
 
   return `# 模型运维 Agentic 测试报告
 
@@ -326,8 +519,12 @@ function buildChineseReport(params: {
 ## 运行结论
 
 - 是否完成：${completed ? "是" : "否"}
+- 最终状态校验：${successChecks.length === 0 ? "无校验项" : successPassed ? "通过" : "未通过"}
 - 是否超时：${timedOut ? "是" : "否"}
 - 总耗时：${elapsedMs}ms
+- 首个 Message 平均延迟：${formatMs(avgFirstMessage)}
+- 首个工具调用平均延迟：${formatMs(avgFirstTool)}
+- 近似文本吞吐：${estimateCharsPerSecond(stats.assistantTextChars, elapsedMs)}
 - Message 事件数：${stats.messageEvents}
 - Finish 事件数：${stats.finishEvents}
 - Error 事件数：${stats.errorEvents}
@@ -338,12 +535,19 @@ function buildChineseReport(params: {
 - 使用过的工具：${stats.uniqueTools.length > 0 ? stats.uniqueTools.join(", ") : "无"}
 - 助手文本字符数：${stats.assistantTextChars}
 
+## 最终状态校验
+
+${successChecks.length === 0 ? "无。": successChecks.map((check) => `- ${check.passed ? "通过" : "失败"}：${check.name}`).join("\n")}
+
 ## 各轮明细
 
 ${turns.map((turn) => `### 第 ${turn.round} 轮
 
 - 用户输入：${turn.user}
 - 耗时：${turn.elapsedMs}ms
+- 首个 Message 延迟：${formatMs(turn.firstMessageMs)}
+- 首个工具调用延迟：${formatMs(turn.firstToolRequestMs)}
+- 首个工具响应延迟：${formatMs(turn.firstToolResponseMs)}
 - 心跳数：${turn.pingCount}
 - 非心跳事件数：${turn.events.length}
 - 工具请求数：${collectSingleTurnStats(turn).toolRequests}
@@ -370,7 +574,8 @@ async function main() {
     maxTokens: options.maxTokens,
     temperature: options.temperature,
     contextLimit: options.contextLimit,
-    extensionOverride: extensionOverride()
+    extensionMode: options.extensionMode,
+    extensionOverride: options.extensionMode === "ticket" ? [extensionOverride(options)] : extensionOverride(options)
   }
 
   if (options.dryRun) {
@@ -392,14 +597,16 @@ async function main() {
   const reportDir = path.join(repoRoot, "reports", incident.id, options.model.replace(/[:/]/g, "_"))
   await fs.mkdir(reportDir, { recursive: true })
   const reportName = `run-${Date.now()}`
+  const finalState = await readFinalState()
+  const successChecks = evaluateSuccess(incident, finalState)
   await fs.writeFile(
     path.join(reportDir, `${reportName}.json`),
-    JSON.stringify({ plan, sessionId: session.id, events }, null, 2),
+    JSON.stringify({ plan, sessionId: session.id, events, finalState, successChecks }, null, 2),
     "utf8"
   )
   await fs.writeFile(
     path.join(reportDir, `${reportName}.zh.md`),
-    buildChineseReport({ incident, options, sessionId: session.id, turns: events }),
+    buildChineseReport({ incident, options, sessionId: session.id, turns: events, successChecks }),
     "utf8"
   )
 }

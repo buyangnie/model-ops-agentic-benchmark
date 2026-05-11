@@ -1,0 +1,10 @@
+id: fo-ticket-closure-single
+name: FO Copilot 单轮工单关闭和知识沉淀
+fixture: fo-ticket-lifecycle
+rounds:
+  - "你是 FO Copilot。本轮最多 5 次工具调用，只按顺序调用这些工具：1 ticket_get_timeline(ticketId=INC-1005)；2 knowledge_search_similar(ticketId=INC-1005)；3 knowledge_create_case(ticketId=INC-1005)；4 ticket_close(ticketId=INC-1005)；5 ticket_validate_state(ticketId=INC-1005, expectedState=closed)。然后用一句中文总结。"
+success:
+  expectedTickets:
+    - ticketId: INC-1005
+      status: closed
+      knowledgeCreated: true

@@ -1,0 +1,10 @@
+id: fo-ticket-noaction-single
+name: FO Copilot 单轮 no-action 判断
+fixture: fo-ticket-lifecycle
+rounds:
+  - "你是 FO Copilot。本轮最多 5 次工具调用，只按顺序调用这些工具：1 ticket_next_action(ticketId=INC-1006)；2 ticket_validate_state(ticketId=INC-1006, expectedState=no_action)。不要发消息，不要创建任务。然后用一句中文说明无需动作。"
+success:
+  expectedTickets:
+    - ticketId: INC-1006
+      nextAction: no_action
+

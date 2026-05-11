@@ -1,0 +1,5465 @@
+{
+  "plan": {
+    "model": "qwen3.5:9b-32k-harness",
+    "incident": "fo-ticket-followup-single",
+    "goosedUrl": "http://127.0.0.1:3000",
+    "workDir": "/Users/buyangnie/Documents/GitHub/model-ops-agentic-benchmark/sandbox/work",
+    "rounds": 1,
+    "maxTokens": 1024,
+    "temperature": 0,
+    "contextLimit": 32768,
+    "extensionMode": "ticket",
+    "extensionOverride": [
+      {
+        "type": "stdio",
+        "name": "ops-benchmark-tools",
+        "cmd": "node",
+        "args": [
+          "/Users/buyangnie/Documents/GitHub/model-ops-agentic-benchmark/dist/mcp/ops-tools/src/server.js"
+        ],
+        "envs": {
+          "BENCHMARK_SANDBOX": "/Users/buyangnie/Documents/GitHub/model-ops-agentic-benchmark/sandbox/work"
+        },
+        "timeout": 60,
+        "bundled": false,
+        "description": "Controlled operations benchmark tools for local incident sandboxes"
+      }
+    ]
+  },
+  "sessionId": "20260511_3",
+  "events": [
+    {
+      "round": 1,
+      "user": "你是 FO Copilot。本轮最多 5 次工具调用，只按顺序调用这些工具：1 ticket_next_action(ticketId=INC-1002)；2 outbox_prepare_message(ticketId=INC-1002, messageType=ask_user)；3 todo_create_followup(ticketId=INC-1002, reasonCode=await_user)；4 ticket_add_comment(ticketId=INC-1002, commentType=followup_note)。然后用一句中文总结。",
+      "elapsedMs": 189686,
+      "firstEventMs": 15924,
+      "firstMessageMs": 15924,
+      "firstToolRequestMs": 132091,
+      "firstToolResponseMs": 132157,
+      "pingCount": 380,
+      "events": [
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509689,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "用户",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509689,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "要求",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509689,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "我",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509689,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "作为",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509689,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " FO",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509689,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " Cop",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509689,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "ilot",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509690,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " 执行",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509690,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "一系列",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509690,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "工具",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509690,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "调用",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509690,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "，",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509690,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "针对",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509690,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "工",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509690,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "单",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " INC",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "-",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "1",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "2",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "。",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "让我",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "按照",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509691,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "顺序",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509692,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "执行",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509692,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "：",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509692,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "\n\n1",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509692,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ".",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509692,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " 首先",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509692,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "调用",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509692,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " ticket",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509692,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_next",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509693,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_action",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509693,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "(ticket",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509693,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "Id",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509693,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "=",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509693,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "INC",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509693,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "-",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509693,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "1",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509693,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509694,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509694,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "2",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509694,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ")",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509694,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " 来判断",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509694,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "工",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509694,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "单",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509694,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "下一步",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509694,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "动作",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509695,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "\n2",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509695,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ".",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509695,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " 然后",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509695,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "调用",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509695,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " out",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509695,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "box",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509695,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_prepare",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509695,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_message",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509695,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "(ticket",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "Id",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "=",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "INC",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "-",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "1",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "2",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ",",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509696,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " messageType",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509697,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "=",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509697,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "ask",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509697,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_user",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509697,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ")",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509697,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " 生成",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509697,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "待",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509697,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "发送",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509698,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "消息",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509698,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "\n3",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509698,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ".",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509698,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " 接着",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509698,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "调用",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509698,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " todo",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509698,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_create",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509698,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_follow",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509699,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "up",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509699,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "(ticket",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509699,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "Id",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509699,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "=",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509699,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "INC",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509699,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "-",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509700,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "1",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509700,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509700,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509700,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "2",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509700,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ",",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509700,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " reason",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509700,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "Code",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509700,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "=",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509701,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "await",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509701,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_user",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509701,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ")",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509702,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " 创建",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509702,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "后续",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509702,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "跟进",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509702,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "任务",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509703,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "\n4",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509703,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ".",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509704,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " 最后",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509704,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "调用",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509704,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " ticket",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509705,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_add",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509706,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_comment",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509706,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "(ticket",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509707,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "Id",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509708,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "=",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509708,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "INC",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509709,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "-",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509710,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "1",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509711,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509711,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "0",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509712,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "2",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509713,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ",",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509714,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " comment",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509715,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "Type",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509716,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "=f",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509717,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "ollow",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509717,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "up",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509718,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "_note",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509719,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": ")",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509721,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": " 写入",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509721,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "备注",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509723,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "\n\n让我",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509724,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "开始",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509725,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "执行",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509726,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "这些",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509727,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "工具",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509728,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "调用",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509728,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "。",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-44",
+            "role": "assistant",
+            "created": 1778509805,
+            "content": [
+              {
+                "type": "toolRequest",
+                "id": "call_qqu3ta8g",
+                "toolCall": {
+                  "status": "success",
+                  "value": {
+                    "name": "ops-benchmark-tools__ticket_next_action",
+                    "arguments": {
+                      "ticketId": "INC-1002"
+                    }
+                  }
+                },
+                "_meta": {
+                  "goose_extension": "ops-benchmark-tools"
+                }
+              },
+              {
+                "type": "toolRequest",
+                "id": "call_1yri7otk",
+                "toolCall": {
+                  "status": "success",
+                  "value": {
+                    "name": "ops-benchmark-tools__outbox_prepare_message",
+                    "arguments": {
+                      "ticketId": "INC-1002",
+                      "messageType": "ask_user"
+                    }
+                  }
+                },
+                "_meta": {
+                  "goose_extension": "ops-benchmark-tools"
+                }
+              },
+              {
+                "type": "toolRequest",
+                "id": "call_mqy1ghzs",
+                "toolCall": {
+                  "status": "success",
+                  "value": {
+                    "name": "ops-benchmark-tools__todo_create_followup",
+                    "arguments": {
+                      "ticketId": "INC-1002",
+                      "reasonCode": "await_user"
+                    }
+                  }
+                },
+                "_meta": {
+                  "goose_extension": "ops-benchmark-tools"
+                }
+              },
+              {
+                "type": "toolRequest",
+                "id": "call_33o9ybrl",
+                "toolCall": {
+                  "status": "success",
+                  "value": {
+                    "name": "ops-benchmark-tools__ticket_add_comment",
+                    "arguments": {
+                      "ticketId": "INC-1002",
+                      "commentType": "followup_note"
+                    }
+                  }
+                },
+                "_meta": {
+                  "goose_extension": "ops-benchmark-tools"
+                }
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "msg_10b0f35a-9ef2-4d6b-aefa-969d4dcf0645",
+            "role": "user",
+            "created": 1778509805,
+            "content": [
+              {
+                "type": "toolResponse",
+                "id": "call_qqu3ta8g",
+                "toolResult": {
+                  "status": "success",
+                  "value": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "{\n  \"ticketId\": \"INC-1002\",\n  \"action\": \"ask_user\",\n  \"reason\": \"当前状态 waiting_user 需要执行 ask_user。\"\n}"
+                      }
+                    ],
+                    "structuredContent": {
+                      "ticketId": "INC-1002",
+                      "action": "ask_user",
+                      "reason": "当前状态 waiting_user 需要执行 ask_user。"
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "msg_5dfa5406-3951-4423-9c8c-aa20a568fe3b",
+            "role": "user",
+            "created": 1778509805,
+            "content": [
+              {
+                "type": "toolResponse",
+                "id": "call_1yri7otk",
+                "toolResult": {
+                  "status": "success",
+                  "value": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "{\n  \"message\": {\n    \"ticketId\": \"INC-1002\",\n    \"messageType\": \"ask_user\",\n    \"text\": \"请补充 报表导出字段缺失 的影响范围和复现时间。\"\n  }\n}"
+                      }
+                    ],
+                    "structuredContent": {
+                      "message": {
+                        "ticketId": "INC-1002",
+                        "messageType": "ask_user",
+                        "text": "请补充 报表导出字段缺失 的影响范围和复现时间。"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "msg_a1c6ba26-cd8f-40d0-aee5-616f24b47d64",
+            "role": "user",
+            "created": 1778509805,
+            "content": [
+              {
+                "type": "toolResponse",
+                "id": "call_mqy1ghzs",
+                "toolResult": {
+                  "status": "success",
+                  "value": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "{\n  \"todo\": {\n    \"ticketId\": \"INC-1002\",\n    \"reasonCode\": \"await_user\",\n    \"owner\": \"u-reporting\"\n  }\n}"
+                      }
+                    ],
+                    "structuredContent": {
+                      "todo": {
+                        "ticketId": "INC-1002",
+                        "reasonCode": "await_user",
+                        "owner": "u-reporting"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "msg_865c7547-6c7c-4561-ae94-694831a7da86",
+            "role": "user",
+            "created": 1778509805,
+            "content": [
+              {
+                "type": "toolResponse",
+                "id": "call_33o9ybrl",
+                "toolResult": {
+                  "status": "success",
+                  "value": {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "{\n  \"comment\": {\n    \"ticketId\": \"INC-1002\",\n    \"commentType\": \"followup_note\",\n    \"text\": \"已根据当前状态执行跟进动作：ask_user。\"\n  }\n}"
+                      }
+                    ],
+                    "structuredContent": {
+                      "comment": {
+                        "ticketId": "INC-1002",
+                        "commentType": "followup_note",
+                        "text": "已根据当前状态执行跟进动作：ask_user。"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 0,
+            "outputTokens": 0,
+            "totalTokens": 0,
+            "accumulatedInputTokens": 0,
+            "accumulatedOutputTokens": 0,
+            "accumulatedTotalTokens": 0
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509850,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "所有",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509851,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "工具",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509851,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "调用",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509851,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "已完成",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509851,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "，",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509852,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "现在",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509852,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "需要用",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509852,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "一句",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509852,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "中文",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509853,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "总结",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509853,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "整个过程",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509853,
+            "content": [
+              {
+                "type": "thinking",
+                "thinking": "。",
+                "signature": ""
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509854,
+            "content": [
+              {
+                "type": "text",
+                "text": "已"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509855,
+            "content": [
+              {
+                "type": "text",
+                "text": "为"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509855,
+            "content": [
+              {
+                "type": "text",
+                "text": "工"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509855,
+            "content": [
+              {
+                "type": "text",
+                "text": "单"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509855,
+            "content": [
+              {
+                "type": "text",
+                "text": " INC"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509855,
+            "content": [
+              {
+                "type": "text",
+                "text": "-"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509856,
+            "content": [
+              {
+                "type": "text",
+                "text": "1"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509856,
+            "content": [
+              {
+                "type": "text",
+                "text": "0"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509856,
+            "content": [
+              {
+                "type": "text",
+                "text": "0"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509856,
+            "content": [
+              {
+                "type": "text",
+                "text": "2"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509857,
+            "content": [
+              {
+                "type": "text",
+                "text": " 执行"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509857,
+            "content": [
+              {
+                "type": "text",
+                "text": "了"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509857,
+            "content": [
+              {
+                "type": "text",
+                "text": " ask"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509858,
+            "content": [
+              {
+                "type": "text",
+                "text": "_user"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509858,
+            "content": [
+              {
+                "type": "text",
+                "text": " 动作"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509858,
+            "content": [
+              {
+                "type": "text",
+                "text": "，"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509859,
+            "content": [
+              {
+                "type": "text",
+                "text": "创建了"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509859,
+            "content": [
+              {
+                "type": "text",
+                "text": "待"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509859,
+            "content": [
+              {
+                "type": "text",
+                "text": "发送"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509859,
+            "content": [
+              {
+                "type": "text",
+                "text": "消息"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509859,
+            "content": [
+              {
+                "type": "text",
+                "text": "和"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509860,
+            "content": [
+              {
+                "type": "text",
+                "text": "跟进"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509860,
+            "content": [
+              {
+                "type": "text",
+                "text": "任务"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509860,
+            "content": [
+              {
+                "type": "text",
+                "text": "，"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509861,
+            "content": [
+              {
+                "type": "text",
+                "text": "并"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509861,
+            "content": [
+              {
+                "type": "text",
+                "text": "添加了"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509861,
+            "content": [
+              {
+                "type": "text",
+                "text": "跟进"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509862,
+            "content": [
+              {
+                "type": "text",
+                "text": "备注"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Message",
+          "message": {
+            "id": "chatcmpl-460",
+            "role": "assistant",
+            "created": 1778509862,
+            "content": [
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "metadata": {
+              "userVisible": true,
+              "agentVisible": true
+            }
+          },
+          "token_state": {
+            "inputTokens": 2363,
+            "outputTokens": 354,
+            "totalTokens": 2717,
+            "accumulatedInputTokens": 2363,
+            "accumulatedOutputTokens": 354,
+            "accumulatedTotalTokens": 2717
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        },
+        {
+          "type": "Finish",
+          "reason": "stop",
+          "token_state": {
+            "inputTokens": 2839,
+            "outputTokens": 47,
+            "totalTokens": 2886,
+            "accumulatedInputTokens": 5202,
+            "accumulatedOutputTokens": 401,
+            "accumulatedTotalTokens": 5603
+          },
+          "chat_request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277",
+          "request_id": "36bceb97-309f-4a94-8b40-c17a3ed87277"
+        }
+      ]
+    }
+  ],
+  "successChecks": []
+}

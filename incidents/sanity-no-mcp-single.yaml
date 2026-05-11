@@ -1,0 +1,6 @@
+id: sanity-no-mcp-single
+name: goosed 无 MCP 裸响应 sanity check
+fixture: fo-ticket-lifecycle
+rounds:
+  - "只用一句中文回复：收到。"
+

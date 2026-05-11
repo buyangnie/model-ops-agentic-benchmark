@@ -1,0 +1,11 @@
+id: fo-ticket-dispatch-single
+name: FO Copilot 单轮工单派单
+fixture: fo-ticket-lifecycle
+rounds:
+  - "你是 FO Copilot。本轮最多 5 次工具调用，只按顺序调用这些工具：1 ticket_get(ticketId=INC-1001)；2 people_list_candidates(ticketId=INC-1001)；3 ticket_assign(ticketId=INC-1001, assigneeId=u-network)；4 ticket_validate_state(ticketId=INC-1001, expectedState=queued)。然后用一句中文总结。"
+success:
+  expectedTickets:
+    - ticketId: INC-1001
+      status: queued
+      assigneeId: u-network
+

@@ -1,0 +1,161 @@
+{
+  "incomingRequests": [
+    {
+      "id": "REQ-2001",
+      "title": "支付回调延迟升高",
+      "service": "payment",
+      "priority": "P2",
+      "requesterId": "customer-a",
+      "summary": "客户反馈支付成功后订单状态延迟更新。",
+      "recommendedAssigneeId": "u-payment"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "INC-1001",
+      "title": "VPN 登录失败影响值班接入",
+      "service": "network",
+      "priority": "P1",
+      "status": "new",
+      "ageHours": 1,
+      "summary": "多名值班同学无法通过 VPN 登录生产堡垒机。",
+      "recommendedAssigneeId": "u-network",
+      "nextAction": "dispatch"
+    },
+    {
+      "id": "INC-1002",
+      "title": "报表导出字段缺失",
+      "service": "reporting",
+      "priority": "P3",
+      "status": "waiting_user",
+      "assigneeId": "u-reporting",
+      "requesterId": "customer-b",
+      "ageHours": 30,
+      "summary": "用户没有说明缺失字段名称，等待补充。",
+      "recommendedAssigneeId": "u-reporting",
+      "nextAction": "ask_user"
+    },
+    {
+      "id": "INC-1003",
+      "title": "告警通知偶发延迟",
+      "service": "notification",
+      "priority": "P2",
+      "status": "in_progress",
+      "assigneeId": "u-notification",
+      "ageHours": 18,
+      "summary": "告警通知存在 5 到 10 分钟延迟，需要处理人更新进展。",
+      "recommendedAssigneeId": "u-notification",
+      "nextAction": "remind_assignee"
+    },
+    {
+      "id": "INC-1004",
+      "title": "数据库只读副本复制延迟",
+      "service": "database",
+      "priority": "P2",
+      "status": "pending_validation",
+      "assigneeId": "u-database",
+      "ageHours": 6,
+      "summary": "处理人已完成修复，等待业务验证。",
+      "recommendedAssigneeId": "u-database",
+      "nextAction": "validate"
+    },
+    {
+      "id": "INC-1005",
+      "title": "对象存储下载 403",
+      "service": "storage",
+      "priority": "P2",
+      "status": "resolved",
+      "assigneeId": "u-storage",
+      "ageHours": 12,
+      "summary": "权限策略已修复，可关闭并沉淀知识。",
+      "recommendedAssigneeId": "u-storage",
+      "nextAction": "close_with_knowledge"
+    },
+    {
+      "id": "INC-1006",
+      "title": "低优先级 UI 文案咨询",
+      "service": "portal",
+      "priority": "P3",
+      "status": "waiting_user",
+      "assigneeId": "u-portal",
+      "requesterId": "customer-c",
+      "ageHours": 2,
+      "summary": "刚向用户询问截图，尚未达到主动跟进条件。",
+      "recommendedAssigneeId": "u-portal",
+      "nextAction": "no_action"
+    },
+    {
+      "id": "INC-1007",
+      "title": "支付回调延迟升高",
+      "service": "payment",
+      "priority": "P2",
+      "status": "new",
+      "requesterId": "customer-a",
+      "ageHours": 0,
+      "summary": "客户反馈支付成功后订单状态延迟更新。",
+      "recommendedAssigneeId": "u-payment",
+      "nextAction": "dispatch"
+    }
+  ],
+  "people": [
+    {
+      "id": "u-network",
+      "name": "张网络",
+      "team": "network-ops",
+      "services": ["network"],
+      "onCall": true
+    },
+    {
+      "id": "u-payment",
+      "name": "李支付",
+      "team": "payment-ops",
+      "services": ["payment"],
+      "onCall": true
+    },
+    {
+      "id": "u-reporting",
+      "name": "王报表",
+      "team": "reporting-ops",
+      "services": ["reporting"],
+      "onCall": true
+    },
+    {
+      "id": "u-notification",
+      "name": "赵通知",
+      "team": "notification-ops",
+      "services": ["notification"],
+      "onCall": true
+    },
+    {
+      "id": "u-database",
+      "name": "陈数据库",
+      "team": "database-ops",
+      "services": ["database"],
+      "onCall": true
+    },
+    {
+      "id": "u-storage",
+      "name": "周存储",
+      "team": "storage-ops",
+      "services": ["storage"],
+      "onCall": true
+    },
+    {
+      "id": "u-portal",
+      "name": "吴门户",
+      "team": "portal-ops",
+      "services": ["portal"],
+      "onCall": false
+    }
+  ],
+  "comments": [],
+  "outbox": [],
+  "todos": [],
+  "knowledge": [
+    {
+      "id": "KB-3001",
+      "service": "storage",
+      "title": "对象存储权限策略排查清单"
+    }
+  ]
+}
